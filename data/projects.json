@@ -1,0 +1,29 @@
+[
+  {
+    "id": 1,
+    "title": "PDF Automator Tool",
+    "description": "An AI-assisted PDF management tool that automates extraction, transformation, and structuring of messy document data into actionable insights.",
+    "tags": ["Python", "PyMuPDF", "Streamlit", "Automation"],
+    "screenshot": "https://placehold.co/600x400/1a1a1f/00f3ff?text=PDF+Tool+Preview",
+    "gif": "",
+    "video": ""
+  },
+  {
+    "id": 2,
+    "title": "Neon Dashboard UI",
+    "description": "A minimalist dark mode dashboard built entirely with frontend technologies. Focuses on speed, responsiveness, and a cyber-punk aesthetic.",
+    "tags": ["Tailwind CSS", "Alpine.js", "HTMX", "UI/UX"],
+    "screenshot": "https://placehold.co/600x400/1a1a1f/bc13fe?text=Neon+Dashboard",
+    "gif": "",
+    "video": ""
+  },
+  {
+    "id": 3,
+    "title": "ETL Data Pipeline",
+    "description": "A robust data pipeline designed to handle large volumes of real-world data, transforming it for analytical processing and reporting.",
+    "tags": ["Data Engineering", "Python", "Polars", "SQL"],
+    "screenshot": "https://placehold.co/600x400/1a1a1f/14a800?text=Data+Pipeline",
+    "gif": "",
+    "video": ""
+  }
+]
