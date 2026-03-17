@@ -1,13 +1,22 @@
 <div class="max-w-6xl mx-auto py-10 animate-fade-in" x-data="blogLoader()">
-    
-    <div class="mb-10 text-center border-b border-gray-800 pb-6">
-        <h2 class="text-4xl font-bold mb-4"><span class="text-neonPurple">~/</span> Blog</h2>
-        <p class="text-gray-400">Minimal Markdown tabanlı blog yazılarım.</p>
+
+    <div class="mb-10 text-center border-b border-gray-800 pb-6 flex flex-col items-center">
+        <!-- Heartbeat / EKG Icon (Replaces "Blog" Text) -->
+        <div class="group cursor-pointer mb-4" title="Blog">
+            <svg class="w-32 h-16 text-gray-500 group-hover:text-[#ff0055] transition-all duration-500 group-hover:drop-shadow-[0_0_12px_rgba(255,0,85,0.8)] stroke-current" 
+                 fill="none" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <!-- EKG Heartbeat Path -->
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" 
+                      d="M2 12h4l2-4 3 9 3-12 2 7 2-2h4" 
+                      class="group-hover:animate-pulse"></path>
+            </svg>
+        </div>
+        <p class="text-gray-400">My thoughts, tutorials, and insights.</p>
     </div>
 
     <!-- Blog Container -->
     <div class="flex flex-col md:flex-row gap-8">
-        
+
         <!-- Sidebar: Blog List -->
         <div class="w-full md:w-1/4 border-r border-gray-800 pr-4">
             <h3 class="text-xl font-semibold mb-4 text-neonCyan tracking-wider uppercase text-sm">Latest Posts</h3>
@@ -15,8 +24,14 @@
                 <!-- Hardcoded list of markdown files for now. In a dynamic app, this could be generated or fetched via a JSON index -->
                 <li>
                     <button @click="loadMarkdown('blog/welcome.md')"
-                            class="text-left w-full px-4 py-2 rounded-lg transition-colors hover:bg-darkCard hover:text-neonCyan focus:bg-darkCard focus:text-neonCyan text-gray-300 font-medium border border-transparent hover:border-gray-700">
+                        class="text-left w-full px-4 py-2 rounded-lg transition-colors hover:bg-darkCard hover:text-neonCyan focus:bg-darkCard focus:text-neonCyan text-gray-300 font-medium border border-transparent hover:border-gray-700">
                         Welcome to My Blog
+                    </button>
+                </li>
+                <li>
+                    <button @click="loadMarkdown('blog/deneme.md')"
+                        class="text-left w-full px-4 py-2 rounded-lg transition-colors hover:bg-darkCard hover:text-neonCyan focus:bg-darkCard focus:text-neonCyan text-gray-300 font-medium border border-transparent hover:border-gray-700">
+                        Deneme Yazısı
                     </button>
                 </li>
                 <!-- Add more blog entries here as new .md files are created -->
@@ -31,16 +46,19 @@
             </div>
 
             <!-- Error state -->
-            <div x-show="error" class="bg-red-900/20 border border-red-500 text-red-400 px-4 py-3 rounded relative" style="display: none;">
+            <div x-show="error" class="bg-red-900/20 border border-red-500 text-red-400 px-4 py-3 rounded relative"
+                style="display: none;">
                 <span class="block sm:inline" x-text="error"></span>
             </div>
 
             <!-- Markdown Rendered Content -->
-            <article x-show="!loading && !error" class="prose prose-invert prose-lg max-w-none prose-a:text-neonCyan hover:prose-a:text-neonPurple prose-headings:text-white prose-code:bg-gray-900 prose-code:text-neonCyan prose-code:px-1 prose-code:rounded prose-pre:bg-gray-900 prose-pre:border prose-pre:border-gray-800" x-html="content">
+            <article x-show="!loading && !error"
+                class="prose prose-invert prose-lg max-w-none prose-a:text-neonCyan hover:prose-a:text-neonPurple prose-headings:text-white prose-code:bg-gray-900 prose-code:text-neonCyan prose-code:px-1 prose-code:rounded prose-pre:bg-gray-900 prose-pre:border prose-pre:border-gray-800"
+                x-html="content">
                 <!-- Content injected here via Alpine.js & marked.js -->
                 <div class="text-center text-gray-500 py-20">Lütfen sol taraftan bir yazı seçin.</div>
             </article>
         </div>
-        
+
     </div>
 </div>
