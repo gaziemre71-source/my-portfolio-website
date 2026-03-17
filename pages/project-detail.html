@@ -1,0 +1,115 @@
+<div class="max-w-4xl mx-auto py-10 animate-fade-in" x-data="projectDetailApp()">
+    
+    <!-- Loading State -->
+    <div x-show="loading" class="flex justify-center py-20">
+        <div class="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-neonCyan"></div>
+    </div>
+
+    <!-- Error State -->
+    <div x-show="error" style="display: none;" class="bg-red-900/20 border border-red-500 text-red-400 p-4 rounded text-center mb-8">
+        <p x-text="error"></p>
+        <button href="#" hx-get="pages/projects.html" hx-target="#main-content" hx-swap="innerHTML transition:true" class="mt-4 px-4 py-2 border border-red-500 rounded hover:bg-red-500 hover:text-black transition-colors">Go Back</button>
+    </div>
+
+    <!-- Project Content (Loaded) -->
+    <div x-show="!loading && !error && project" style="display: none;">
+        
+        <!-- Top Navigation -->
+        <div class="mb-8 flex items-center justify-between border-b border-gray-800 pb-4">
+            <button hx-get="pages/projects.html" hx-target="#main-content" hx-swap="innerHTML transition:true" 
+                    class="flex items-center text-gray-400 hover:text-neonCyan transition-colors group">
+                <svg class="h-5 w-5 mr-2 transform group-hover:-translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+                </svg>
+                Back to Projects
+            </button>
+        </div>
+
+        <!-- Project Hero Header -->
+        <header class="mb-10 text-center">
+            <h1 class="text-4xl md:text-5xl font-bold text-white mb-4 drop-shadow-[0_0_10px_rgba(0,243,255,0.2)]" x-text="project?.title"></h1>
+            <p class="text-xl text-gray-400 max-w-2xl mx-auto mb-6" x-text="project?.description"></p>
+            
+            <!-- Tags -->
+            <div class="flex flex-wrap justify-center gap-2 mb-8">
+                <template x-for="tag in project?.tags" :key="tag">
+                    <span class="px-3 py-1 bg-neonPurple/10 border border-neonPurple/50 rounded-full text-xs font-semibold text-neonPurple backdrop-blur-sm"
+                        x-text="tag"></span>
+                </template>
+            </div>
+
+            <!-- Hero Image/Video (Optional) -->
+            <div class="w-full rounded-2xl overflow-hidden border border-gray-800 shadow-xl border-glow-cyan">
+                 <img x-show="project?.screenshot" :src="project?.screenshot" class="w-full object-cover">
+            </div>
+        </header>
+
+        <!-- Markdown Rendered Content -->
+        <article class="prose prose-invert prose-lg max-w-none prose-a:text-neonCyan hover:prose-a:text-neonPurple prose-headings:text-white prose-code:bg-gray-900 prose-code:text-neonCyan prose-code:px-1 prose-code:rounded prose-pre:bg-gray-900 prose-pre:border prose-pre:border-gray-800 prose-img:rounded-xl prose-img:border prose-img:border-gray-800 prose-img:shadow-lg"
+                 x-html="markdownContent">
+        </article>
+        
+        <!-- Bottom Navigation -->
+        <div class="mt-16 pt-8 border-t border-gray-800 text-center">
+            <button hx-get="pages/projects.html" hx-target="#main-content" hx-swap="innerHTML transition:true" 
+                    class="px-8 py-3 bg-darkCard border border-gray-700 hover:border-neonCyan hover:text-neonCyan rounded-lg font-semibold tracking-wider transition-all duration-300">
+                View All Projects
+            </button>
+        </div>
+
+    </div>
+</div>
+
+<!-- Add Alpine Component Logic to index.html to manage this page -->
+<script>
+    // Note: We inject this logic into the window so Alpine can find it.
+    // It is better to place this permanently inside index.html for SPA architecture.
+    // For now, it will work here because HTMX evals scripts.
+    if (typeof window.projectDetailApp !== 'function') {
+        window.projectDetailApp = function() {
+            return {
+                projectId: null,
+                project: null,
+                markdownContent: '',
+                loading: true,
+                error: null,
+
+                async init() {
+                    this.projectId = parseInt(localStorage.getItem('emregoktas_portfolio_project_id'));
+                    
+                    if (!this.projectId) {
+                        this.error = "Project ID not found.";
+                        this.loading = false;
+                        return;
+                    }
+
+                    try {
+                        // 1. Fetch JSON to get Project Meta
+                        const res = await fetch('data/projects.json');
+                        const data = await res.json();
+                        this.project = data.find(p => p.id === this.projectId);
+
+                        if (!this.project) {
+                            throw new Error("Project data not found in JSON.");
+                        }
+
+                        // 2. Fetch markdown if available
+                        if (this.project.markdownFile) {
+                            const mdRes = await fetch(this.project.markdownFile);
+                            if (!mdRes.ok) throw new Error("Markdown file not found.");
+                            const mdText = await mdRes.text();
+                            this.markdownContent = marked.parse(mdText);
+                        } else {
+                            this.markdownContent = "<p class='text-gray-500 italic text-center'>Detailed documentation has not been added for this project yet.</p>";
+                        }
+                    } catch (err) {
+                        console.error(err);
+                        this.error = "Error loading data: " + err.message;
+                    } finally {
+                        this.loading = false;
+                    }
+                }
+            }
+        }
+    }
+</script>

@@ -114,7 +114,21 @@
                     document.body.style.overflow = 'hidden';
                 },
 
+                viewFullProject(id) {
+                    // Save to local storage for the detail page to read
+                    localStorage.setItem('emregoktas_portfolio_project_id', id);
+                    this.closeModal();
+                    
+                    // Trigger HTMX routing to the new detail page manually
+                    htmx.ajax('GET', 'pages/project-detail.html', {target: '#main-content', swap: 'innerHTML transition:true'});
+                },
+
                 closeModal() {
+                    if (this.mediaType !== 'image') {
+                        this.mediaType = 'image';
+                        return;
+                    }
+
                     this.modalOpen = false;
                     // Add short delay to clear active project so transitions finish smoothly
                     setTimeout(() => {
@@ -172,6 +186,12 @@
                 }
             }
         }
+
+        // Global HTMX Cache Busting for Development
+        document.addEventListener('htmx:configRequest', function(evt) {
+            // Append a timestamp to every HTMX request to prevent browser caching
+            evt.detail.path = evt.detail.path + (evt.detail.path.includes('?') ? '&' : '?') + 't=' + new Date().getTime();
+        });
     </script>
 </head>
 

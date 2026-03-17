@@ -13,8 +13,9 @@
       "RAG"
     ],
     "screenshot": "assets/image.png",
-    "gif": "",
-    "video": "assets/video.mp4"
+    "gif": "assets/gif.gif",
+    "video": "assets/video.mp4",
+    "markdownFile": "data/projects/1.md"
   },
   {
     "id": 2,
@@ -28,7 +29,8 @@
     ],
     "screenshot": "https://placehold.co/600x400/1a1a1f/bc13fe?text=Neon+Dashboard",
     "gif": "",
-    "video": ""
+    "video": "assets/video.mp4",
+    "markdownFile": "data/projects/1.md"
   },
   {
     "id": 3,
