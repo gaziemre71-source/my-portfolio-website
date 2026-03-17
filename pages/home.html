@@ -1,0 +1,54 @@
+<div class="space-y-16 animate-fade-in" x-data>
+    
+    <!-- Hero Section -->
+    <section class="text-center py-20 px-4">
+        <h1 class="text-5xl md:text-7xl font-bold mb-6 tracking-tight">
+            Hi, I'm <span class="text-transparent bg-clip-text bg-gradient-to-r from-neonCyan to-neonPurple">Emre Gazi</span>
+        </h1>
+        <p class="text-xl md:text-2xl text-gray-400 max-w-2xl mx-auto mb-10 leading-relaxed">
+            Keşfedin: Benim AI destekli projelerimi, mini araçlarımı ve modern frontend tasarımlarımı.
+        </p>
+        
+        <div class="flex flex-col sm:flex-row justify-center gap-4">
+            <button hx-get="pages/projects.html" hx-target="#main-content" hx-swap="innerHTML transition:true" 
+                    class="px-8 py-3 rounded-full bg-transparent border-2 border-neonCyan text-neonCyan font-semibold hover:bg-neonCyan hover:text-black transition-all border-glow-cyan">
+                View Projects
+            </button>
+            <button hx-get="pages/about.html" hx-target="#main-content" hx-swap="innerHTML transition:true"
+                    class="px-8 py-3 rounded-full bg-darkCard border border-gray-700 hover:border-neonPurple text-white transition-all">
+                About Me
+            </button>
+        </div>
+    </section>
+
+    <!-- Highlighted Projects Section -->
+    <section class="py-10 border-t border-gray-800">
+        <h2 class="text-3xl font-bold mb-8 text-center"><span class="text-neonCyan">/</span> Featured Highlights</h2>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+            <!-- Mock Highlight Card 1 -->
+            <div class="bg-darkCard rounded-xl overflow-hidden border border-gray-800 hover:border-neonCyan transition-all group cursor-pointer"
+                 hx-get="pages/projects.html" hx-target="#main-content" hx-swap="innerHTML transition:true">
+                <div class="h-48 bg-gray-900 relative">
+                    <img src="https://placehold.co/600x400/1a1a1f/00f3ff?text=PDF+Tool+Preview" alt="PDF Tool" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity">
+                </div>
+                <div class="p-6">
+                    <h3 class="text-xl font-semibold mb-2 group-hover:text-neonCyan transition-colors">PDF Automator Tool</h3>
+                    <p class="text-gray-400 text-sm">AI-assisted PDF management tool.</p>
+                </div>
+            </div>
+
+            <!-- Mock Highlight Card 2 -->
+            <div class="bg-darkCard rounded-xl overflow-hidden border border-gray-800 hover:border-neonPurple transition-all group cursor-pointer"
+                 hx-get="pages/projects.html" hx-target="#main-content" hx-swap="innerHTML transition:true">
+                <div class="h-48 bg-gray-900 relative">
+                    <img src="https://placehold.co/600x400/1a1a1f/bc13fe?text=Neon+Dashboard" alt="Neon Dashboard" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity">
+                </div>
+                <div class="p-6">
+                    <h3 class="text-xl font-semibold mb-2 group-hover:text-neonPurple transition-colors">Neon Dashboard UI</h3>
+                    <p class="text-gray-400 text-sm">Minimalist dark mode dashboard.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
