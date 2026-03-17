@@ -3,15 +3,18 @@
     <div class="mb-10 text-center border-b border-gray-800 pb-6 flex flex-col items-center">
         <!-- Heartbeat / EKG Icon (Replaces "Blog" Text) -->
         <div class="group cursor-pointer mb-4" title="Blog">
-            <svg class="w-32 h-16 text-gray-500 group-hover:text-[#ff0055] transition-all duration-500 group-hover:drop-shadow-[0_0_12px_rgba(255,0,85,0.8)] stroke-current" 
-                 fill="none" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <!-- EKG Heartbeat Path -->
+            <svg class="w-96 h-16 text-[#ff0055] drop-shadow-[0_0_12px_rgba(255,0,85,0.8)] group-hover:text-gray-700 group-hover:drop-shadow-none transition-all duration-500 stroke-current" 
+                 fill="none" viewBox="0 0 72 24" xmlns="http://www.w3.org/2000/svg">
+                <!-- Extended EKG Heartbeat Path -->
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" 
-                      d="M2 12h4l2-4 3 9 3-12 2 7 2-2h4" 
-                      class="group-hover:animate-pulse"></path>
-            </svg>
+                      d="M2 12h12l2-4 3 9 3-12 2 7 2-2h12l2-6 3 14 3-18 2 10 2-2h16" 
+                      class="animate-pulse group-hover:animate-none"></path>
         </div>
-        <p class="text-gray-400">My thoughts, tutorials, and insights.</p>
+        
+        <div class="italic text-gray-400 mt-2 max-w-md text-sm">
+            "One always has exaggerated ideas about what one doesn't know."
+            <span class="block text-right text-xs mt-1 text-gray-500">— Albert Camus</span>
+        </div>
     </div>
 
     <!-- Blog Container -->
@@ -24,13 +27,13 @@
                 <!-- Hardcoded list of markdown files for now. In a dynamic app, this could be generated or fetched via a JSON index -->
                 <li>
                     <button @click="loadMarkdown('blog/welcome.md')"
-                        class="text-left w-full px-4 py-2 rounded-lg transition-colors hover:bg-darkCard hover:text-neonCyan focus:bg-darkCard focus:text-neonCyan text-gray-300 font-medium border border-transparent hover:border-gray-700">
+                        class="text-left w-full px-4 py-2 text-lg rounded-lg transition-colors hover:bg-darkCard hover:text-neonCyan focus:bg-darkCard focus:text-neonCyan text-gray-300 font-medium border border-transparent hover:border-gray-700">
                         Welcome to My Blog
                     </button>
                 </li>
                 <li>
                     <button @click="loadMarkdown('blog/deneme.md')"
-                        class="text-left w-full px-4 py-2 rounded-lg transition-colors hover:bg-darkCard hover:text-neonCyan focus:bg-darkCard focus:text-neonCyan text-gray-300 font-medium border border-transparent hover:border-gray-700">
+                        class="text-left w-full px-4 py-2 text-lg rounded-lg transition-colors hover:bg-darkCard hover:text-neonCyan focus:bg-darkCard focus:text-neonCyan text-gray-300 font-medium border border-transparent hover:border-gray-700">
                         Deneme Yazısı
                     </button>
                 </li>

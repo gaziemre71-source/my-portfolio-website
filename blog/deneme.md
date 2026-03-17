@@ -1,5 +1,4 @@
-** bold **
-
+*bold* 
 * italic *
 
 # h1

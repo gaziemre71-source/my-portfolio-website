@@ -1,6 +1,6 @@
 # Welcome to My First Blog Post!
 
-Hello and welcome to the blog section of my interactive portfolio website. This blog is fully generated from a simple Markdown file, avoiding the need for complex databases or backend infrastructure!
+Hello and welcome to the blog section of my interactive portfolio website. This blog is fully generated from a simple Markdown file, avoiding the need for complex databases or backend infrastructure!Hello and welcome to the blog section of my interactive portfolio website. This blog is fully generated from a simple Markdown file, avoiding the need for complex databases or backend infrastructure!
 
 ## Why Markdown?
 
