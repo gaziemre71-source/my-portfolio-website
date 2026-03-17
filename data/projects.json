@@ -2,16 +2,19 @@
   {
     "id": 1,
     "title": "PDF Eliminator Tool",
-    "description": "An AI-assisted PDF management tool that automates extraction, transformation, and structuring of messy document data into actionable insights.",
+    "description": "An AI-assisted PDF management tool",
     "tags": [
       "Python",
       "PyMuPDF",
       "Streamlit",
-      "Automation"
+      "Automation",
+      "AI",
+      "LLM",
+      "RAG"
     ],
-    "screenshot": "https://placehold.co/600x400/1a1a1f/00f3ff?text=PDF+Tool+Preview",
+    "screenshot": "assets/image.png",
     "gif": "",
-    "video": ""
+    "video": "assets/video.mp4"
   },
   {
     "id": 2,
