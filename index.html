@@ -156,6 +156,22 @@
                 }
             }
         }
+
+        function featuredApp() {
+            return {
+                featured: [],
+                async init() {
+                    try {
+                        const res = await fetch(`data/projects.json?t=${new Date().getTime()}`);
+                        if (!res.ok) throw new Error('Projeler yüklenemedi.');
+                        const data = await res.json();
+                        this.featured = data.slice(0, 3);
+                    } catch (err) {
+                        console.error("Fetch error: ", err);
+                    }
+                }
+            }
+        }
     </script>
 </head>
 

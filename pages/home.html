@@ -86,38 +86,29 @@
         </div>
     </section>
 
-    <!-- Highlighted Projects Section -->
-    <section class="py-10 border-t border-gray-800">
+    <!-- Highlighted Projects Section (Automated via Alpine.js) -->
+    <section class="py-10 border-t border-gray-800" x-data="featuredApp()">
         <h2 class="text-3xl font-bold mb-8 text-center">Featured Highlights</h2>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-            <!-- Mock Highlight Card 1 -->
-            <div class="bg-darkCard rounded-xl overflow-hidden border border-gray-800 hover:border-neonCyan transition-all group cursor-pointer"
-                hx-get="pages/projects.html" hx-target="#main-content" hx-swap="innerHTML transition:true">
-                <div class="h-48 bg-gray-900 relative">
-                    <img src="https://placehold.co/600x400/1a1a1f/00f3ff?text=PDF+Tool+Preview" alt="PDF Tool"
-                        class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity">
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+            <template x-for="(project, index) in featured" :key="project.id">
+                <div class="bg-darkCard rounded-xl overflow-hidden border border-gray-800 transition-all group cursor-pointer"
+                    :class="index % 2 === 0 ? 'hover:border-neonCyan' : 'hover:border-neonPurple'"
+                    hx-get="pages/projects.html" hx-target="#main-content" hx-swap="innerHTML transition:true">
+                    <!-- HTMX Note: Since Alpine renders this dynamically, HTMX might not process the hx-get attribute automatically. We need to tell Alpine to process it after rendering. -->
+                    <div class="h-48 bg-gray-900 relative"
+                        x-init="$nextTick(() => { htmx.process($el.parentElement) })">
+                        <img :src="project.screenshot" :alt="project.title"
+                            class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold mb-2 transition-colors"
+                            :class="index % 2 === 0 ? 'group-hover:text-neonCyan' : 'group-hover:text-neonPurple'"
+                            x-text="project.title"></h3>
+                        <p class="text-gray-400 text-sm line-clamp-2" x-text="project.description"></p>
+                    </div>
                 </div>
-                <div class="p-6">
-                    <h3 class="text-xl font-semibold mb-2 group-hover:text-neonCyan transition-colors">PDF Automator
-                        Tool</h3>
-                    <p class="text-gray-400 text-sm">AI-assisted PDF management tool.</p>
-                </div>
-            </div>
-
-            <!-- Mock Highlight Card 2 -->
-            <div class="bg-darkCard rounded-xl overflow-hidden border border-gray-800 hover:border-neonPurple transition-all group cursor-pointer"
-                hx-get="pages/projects.html" hx-target="#main-content" hx-swap="innerHTML transition:true">
-                <div class="h-48 bg-gray-900 relative">
-                    <img src="https://placehold.co/600x400/1a1a1f/bc13fe?text=Neon+Dashboard" alt="Neon Dashboard"
-                        class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity">
-                </div>
-                <div class="p-6">
-                    <h3 class="text-xl font-semibold mb-2 group-hover:text-neonPurple transition-colors">Neon Dashboard
-                        UI</h3>
-                    <p class="text-gray-400 text-sm">Minimalist dark mode dashboard.</p>
-                </div>
-            </div>
+            </template>
         </div>
     </section>
 </div>
