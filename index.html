@@ -145,11 +145,29 @@
                 content: '<div class="text-center text-gray-500 py-20">Lütfen sol taraftan bir yazı seçin.</div>',
                 loading: false,
                 error: null,
-                init() {
-                    // Auto-load the first blog post when navigating to the blog page
-                    this.loadMarkdown('blog/welcome.md');
+                blogList: [],
+                activeFile: null,
+                async init() {
+                    try {
+                        // Prevent JSON caching
+                        const res = await fetch(`data/blogs.json?t=${new Date().getTime()}`);
+                        if (res.ok) {
+                            this.blogList = await res.json();
+                        }
+                    } catch (err) {
+                        console.error("Failed to load blog list", err);
+                    }
+                    
+                    // Auto-load the first blog post if available
+                    if (this.blogList.length > 0) {
+                        this.loadMarkdown(this.blogList[0].file);
+                    } else {
+                        // Fallback
+                        this.loadMarkdown('blog/welcome.md');
+                    }
                 },
                 async loadMarkdown(filepath) {
+                    this.activeFile = filepath;
                     this.loading = true;
                     this.error = null;
                     try {

@@ -1,0 +1,14 @@
+[
+  {
+    "title": "Welcome to My Blog",
+    "file": "blog/welcome.md"
+  },
+  {
+    "title": "Deneme 1",
+    "file": "blog/deneme.md"
+  },
+  {
+    "title": "Deneme 2",
+    "file": "blog/deneme2.md"
+  }
+]

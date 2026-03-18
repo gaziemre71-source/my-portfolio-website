@@ -24,20 +24,15 @@
         <div class="w-full md:w-1/4 border-r border-gray-800 pr-4">
             <h3 class="text-xl font-semibold mb-4 text-neonCyan tracking-wider uppercase text-sm">Latest Posts</h3>
             <ul class="space-y-3">
-                <!-- Hardcoded list of markdown files for now. In a dynamic app, this could be generated or fetched via a JSON index -->
-                <li>
-                    <button @click="loadMarkdown('blog/welcome.md')"
-                        class="text-left w-full px-4 py-2 text-lg rounded-lg transition-colors hover:bg-darkCard hover:text-neonCyan focus:bg-darkCard focus:text-neonCyan text-gray-300 font-medium border border-transparent hover:border-gray-700">
-                        Welcome to My Blog
-                    </button>
-                </li>
-                <li>
-                    <button @click="loadMarkdown('blog/deneme.md')"
-                        class="text-left w-full px-4 py-2 text-lg rounded-lg transition-colors hover:bg-darkCard hover:text-neonCyan focus:bg-darkCard focus:text-neonCyan text-gray-300 font-medium border border-transparent hover:border-gray-700">
-                        Deneme Yazısı
-                    </button>
-                </li>
-                <!-- Add more blog entries here as new .md files are created -->
+                <template x-for="blog in blogList" :key="blog.file">
+                    <li>
+                        <button @click="loadMarkdown(blog.file)"
+                            :class="{'border-gray-700 bg-darkCard text-neonCyan': activeFile === blog.file, 'border-transparent text-gray-300 hover:border-gray-700 hover:bg-darkCard hover:text-neonCyan': activeFile !== blog.file}"
+                            class="text-left w-full px-4 py-2 text-lg rounded-lg transition-colors focus:bg-darkCard focus:text-neonCyan font-medium border"
+                            x-text="blog.title">
+                        </button>
+                    </li>
+                </template>
             </ul>
         </div>
 
