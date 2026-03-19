@@ -118,9 +118,9 @@
                     // Save to local storage for the detail page to read
                     localStorage.setItem('emregoktas_portfolio_project_id', id);
                     this.closeModal();
-                    
+
                     // Trigger HTMX routing to the new detail page manually
-                    htmx.ajax('GET', 'pages/project-detail.html', {target: '#main-content', swap: 'innerHTML transition:true'});
+                    htmx.ajax('GET', 'pages/project-detail.html', { target: '#main-content', swap: 'innerHTML transition:true' });
                 },
 
                 closeModal() {
@@ -150,14 +150,14 @@
                 async init() {
                     try {
                         // Prevent JSON caching
-                        const res = await fetch(`data/blogs.json?t=${new Date().getTime()}`);
+                        const res = await fetch(`blog/blogs.json?t=${new Date().getTime()}`);
                         if (res.ok) {
                             this.blogList = await res.json();
                         }
                     } catch (err) {
                         console.error("Failed to load blog list", err);
                     }
-                    
+
                     // Auto-load the first blog post if available
                     if (this.blogList.length > 0) {
                         this.loadMarkdown(this.blogList[0].file);
@@ -206,7 +206,7 @@
         }
 
         // Global HTMX Cache Busting for Development
-        document.addEventListener('htmx:configRequest', function(evt) {
+        document.addEventListener('htmx:configRequest', function (evt) {
             // Append a timestamp to every HTMX request to prevent browser caching
             evt.detail.path = evt.detail.path + (evt.detail.path.includes('?') ? '&' : '?') + 't=' + new Date().getTime();
         });
