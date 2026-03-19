@@ -1,4 +1,4 @@
-<div class="max-w-4xl mx-auto py-10 animate-fade-in" x-data="projectDetailApp()">
+<div class="max-w-4xl mx-auto py-10 animate-fade-in" x-data="projectDetailApp">
     
     <!-- Loading State -->
     <div x-show="loading" class="flex justify-center py-20">
@@ -28,7 +28,7 @@
         <!-- Project Hero Header -->
         <header class="mb-10 text-center">
             <h1 class="text-4xl md:text-5xl font-bold text-white mb-4 drop-shadow-[0_0_10px_rgba(0,243,255,0.2)]" x-text="project?.title"></h1>
-            <p class="text-xl text-gray-400 max-w-2xl mx-auto mb-6" x-text="project?.description"></p>
+            <p class="text-xl text-gray-400 max-w-2xl mx-auto mb-6" x-html="project?.description"></p>
             
             <!-- Tags -->
             <div class="flex flex-wrap justify-center gap-2 mb-8">
@@ -60,56 +60,4 @@
     </div>
 </div>
 
-<!-- Add Alpine Component Logic to index.html to manage this page -->
-<script>
-    // Note: We inject this logic into the window so Alpine can find it.
-    // It is better to place this permanently inside index.html for SPA architecture.
-    // For now, it will work here because HTMX evals scripts.
-    if (typeof window.projectDetailApp !== 'function') {
-        window.projectDetailApp = function() {
-            return {
-                projectId: null,
-                project: null,
-                markdownContent: '',
-                loading: true,
-                error: null,
-
-                async init() {
-                    this.projectId = parseInt(localStorage.getItem('emregoktas_portfolio_project_id'));
-                    
-                    if (!this.projectId) {
-                        this.error = "Project ID not found.";
-                        this.loading = false;
-                        return;
-                    }
-
-                    try {
-                        // 1. Fetch JSON to get Project Meta
-                        const res = await fetch('data/projects.json');
-                        const data = await res.json();
-                        this.project = data.find(p => p.id === this.projectId);
-
-                        if (!this.project) {
-                            throw new Error("Project data not found in JSON.");
-                        }
-
-                        // 2. Fetch markdown if available
-                        if (this.project.markdownFile) {
-                            const mdRes = await fetch(this.project.markdownFile);
-                            if (!mdRes.ok) throw new Error("Markdown file not found.");
-                            const mdText = await mdRes.text();
-                            this.markdownContent = marked.parse(mdText);
-                        } else {
-                            this.markdownContent = "<p class='text-gray-500 italic text-center'>Detailed documentation has not been added for this project yet.</p>";
-                        }
-                    } catch (err) {
-                        console.error(err);
-                        this.error = "Error loading data: " + err.message;
-                    } finally {
-                        this.loading = false;
-                    }
-                }
-            }
-        }
-    }
-</script>
+</div>

@@ -1,4 +1,4 @@
-<div class="max-w-6xl mx-auto py-10 animate-fade-in" x-data="projectsApp()">
+<div class="max-w-6xl mx-auto py-10 animate-fade-in" x-data="projectsApp">
 
     <div class="mb-10 text-center border-b border-gray-800 pb-6">
         <h2 class="text-4xl font-bold mb-4"><span class="text-neonCyan"></span>My Projects</h2>
@@ -38,7 +38,7 @@
                     <div>
                         <h3 class="text-xl font-bold mb-3 text-white group-hover:text-neonCyan transition-colors"
                             x-text="project.title"></h3>
-                        <p class="text-gray-400 text-sm line-clamp-3 mb-4" x-text="project.description"></p>
+                        <p class="text-gray-400 text-sm line-clamp-3 mb-4" x-html="project.description"></p>
                     </div>
 
                     <!-- Tags -->
@@ -95,7 +95,7 @@
             <!-- Modal Body (Scrollable) -->
             <div class="px-6 py-6 overflow-y-auto flex-grow">
 
-                <p class="text-gray-300 text-lg mb-8 leading-relaxed" x-text="activeProject?.description"></p>
+                <p class="text-gray-300 text-lg mb-8 leading-relaxed" x-html="activeProject?.description"></p>
 
                 <!-- Media Toggles (Alpine.js state for slide show) -->
                 <div class="mb-6 flex space-x-4 border-b border-gray-800 pb-2">

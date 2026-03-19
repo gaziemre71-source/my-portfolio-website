@@ -2,7 +2,7 @@
   {
     "id": 1,
     "title": "PDF Eliminator Tool",
-    "description": "An AI-assisted PDF management tool",
+    "description": "An AI-assisted PDF management tool. <a href='https://www.google.com' target='_blank' class='text-neonCyan hover:underline'>Search on Google</a>",
     "tags": [
       "Python",
       "PyMuPDF",
@@ -15,7 +15,7 @@
     "screenshot": "assets/image.png",
     "gif": "assets/output.gif",
     "video": "assets/video.mp4",
-    "markdownFile": "data/projects/1.md"
+    "markdownFile": "projects/1.md"
   },
   {
     "id": 2,
@@ -30,7 +30,7 @@
     "screenshot": "https://placehold.co/600x400/1a1a1f/bc13fe?text=Neon+Dashboard",
     "gif": "assets/output.gif",
     "video": "assets/video.mp4",
-    "markdownFile": "data/projects/1.md"
+    "markdownFile": "projects/2.md"
   },
   {
     "id": 3,
@@ -44,6 +44,7 @@
     ],
     "screenshot": "https://placehold.co/600x400/1a1a1f/14a800?text=Data+Pipeline",
     "gif": "",
-    "video": ""
+    "video": "",
+    "markdownFile": "projects/3.md"
   }
 ]

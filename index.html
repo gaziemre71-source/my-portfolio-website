@@ -95,7 +95,7 @@
 
                 async init() {
                     try {
-                        const response = await fetch('data/projects.json');
+                        const response = await fetch('projects/projects.json');
                         if (!response.ok) throw new Error('Projeler yüklenemedi.');
                         this.projects = await response.json();
                     } catch (err) {
@@ -115,12 +115,9 @@
                 },
 
                 viewFullProject(id) {
-                    // Save to local storage for the detail page to read
-                    localStorage.setItem('emregoktas_portfolio_project_id', id);
                     this.closeModal();
-
-                    // Trigger HTMX routing to the new detail page manually
-                    htmx.ajax('GET', 'pages/project-detail.html', { target: '#main-content', swap: 'innerHTML transition:true' });
+                    // Update hash for shareable link
+                    window.location.hash = `#/project/${id}`;
                 },
 
                 closeModal() {
@@ -194,7 +191,7 @@
                 featured: [],
                 async init() {
                     try {
-                        const res = await fetch(`data/projects.json?t=${new Date().getTime()}`);
+                        const res = await fetch(`projects/projects.json?t=${new Date().getTime()}`);
                         if (!res.ok) throw new Error('Projeler yüklenemedi.');
                         const data = await res.json();
                         this.featured = data.slice(0, 3);
@@ -204,6 +201,90 @@
                 }
             }
         }
+
+        function projectDetailApp() {
+            return {
+                projectId: null,
+                project: null,
+                markdownContent: '',
+                loading: true,
+                error: null,
+
+                async init() {
+                    this.projectId = parseInt(localStorage.getItem('emregoktas_portfolio_project_id'));
+
+                    if (!this.projectId) {
+                        this.error = "Project ID not found.";
+                        this.loading = false;
+                        return;
+                    }
+
+                    try {
+                        // 1. Fetch JSON to get Project Meta
+                        const res = await fetch('projects/projects.json');
+                        const data = await res.json();
+                        this.project = data.find(p => p.id === this.projectId);
+
+                        if (!this.project) {
+                            throw new Error("Project data not found in JSON.");
+                        }
+
+                        // 2. Fetch markdown if available
+                        if (this.project.markdownFile) {
+                            const mdRes = await fetch(this.project.markdownFile);
+                            if (!mdRes.ok) throw new Error("Markdown file not found.");
+                            const mdText = await mdRes.text();
+                            this.markdownContent = marked.parse(mdText);
+                        } else {
+                            this.markdownContent = "<p class='text-gray-500 italic text-center'>Detailed documentation has not been added for this project yet.</p>";
+                        }
+                    } catch (err) {
+                        console.error(err);
+                        this.error = "Error loading data: " + err.message;
+                    } finally {
+                        this.loading = false;
+                    }
+                }
+            }
+        }
+
+        // Simple Hash Router
+        const routes = {
+            '#/home': 'pages/home.html',
+            '#/about': 'pages/about.html',
+            '#/projects': 'pages/projects.html',
+            '#/blog': 'pages/blog.html'
+        };
+
+        function handleRouting() {
+            const hash = window.location.hash || '#/home';
+            
+            // Special case for project detail
+            if (hash.startsWith('#/project/')) {
+                const id = hash.split('/').pop();
+                localStorage.setItem('emregoktas_portfolio_project_id', id);
+                htmx.ajax('GET', 'pages/project-detail.html', { target: '#main-content', swap: 'innerHTML transition:true' });
+                return;
+            }
+
+            // Standard routes
+            const page = routes[hash];
+            if (page) {
+                htmx.ajax('GET', page, { target: '#main-content', swap: 'innerHTML transition:true' });
+            }
+        }
+
+        // Register Alpine Components
+        document.addEventListener('alpine:init', () => {
+            Alpine.data('projectsApp', projectsApp);
+            Alpine.data('blogLoader', blogLoader);
+            Alpine.data('featuredApp', featuredApp);
+            Alpine.data('projectDetailApp', projectDetailApp);
+        });
+
+        // Routing Listeners
+        window.addEventListener('hashchange', handleRouting);
+        window.addEventListener('load', handleRouting);
 
         // Global HTMX Cache Busting for Development
         document.addEventListener('htmx:configRequest', function (evt) {
@@ -221,9 +302,8 @@
             <div class="flex items-center justify-between h-16">
                 <!-- Logo -->
                 <div class="flex-shrink-0">
-                    <a href="#"
-                        class="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-neonCyan to-neonPurple"
-                        hx-get="pages/home.html" hx-target="#main-content" hx-swap="innerHTML transition:true">
+                    <a href="#/home"
+                        class="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-neonCyan to-neonPurple">
                         Emre<span class="text-white">GOKTAS</span>
                     </a>
                 </div>
@@ -231,20 +311,16 @@
                 <!-- Desktop Menu -->
                 <nav class="hidden md:block">
                     <ul class="flex space-x-8 items-center">
-                        <li><a href="#" hx-get="pages/home.html" hx-target="#main-content"
-                                hx-swap="innerHTML transition:true"
+                        <li><a href="#/home"
                                 class="hover:text-neonCyan transition-colors cursor-pointer text-sm font-semibold tracking-wider uppercase">Home</a>
                         </li>
-                        <li><a href="#" hx-get="pages/about.html" hx-target="#main-content"
-                                hx-swap="innerHTML transition:true"
+                        <li><a href="#/about"
                                 class="hover:text-neonCyan transition-colors cursor-pointer text-sm font-semibold tracking-wider uppercase">About
                                 Me</a></li>
-                        <li><a href="#" hx-get="pages/projects.html" hx-target="#main-content"
-                                hx-swap="innerHTML transition:true"
+                        <li><a href="#/projects"
                                 class="hover:text-neonCyan transition-colors cursor-pointer text-sm font-semibold tracking-wider uppercase">Projects</a>
                         </li>
-                        <li><a href="#" hx-get="pages/blog.html" hx-target="#main-content"
-                                hx-swap="innerHTML transition:true"
+                        <li><a href="#/blog"
                                 class="hover:text-neonCyan transition-colors cursor-pointer text-sm font-semibold tracking-wider uppercase">Blog</a>
                         </li>
                     </ul>
@@ -264,18 +340,14 @@
                     <!-- Mobile Menu Dropdown -->
                     <div x-show="open" @click.away="open = false" style="display: none;"
                         class="absolute top-16 left-0 w-full bg-darkCard border-b border-gray-800 shadow-xl p-4 flex flex-col space-y-4">
-                        <a href="#" @click="open = false" hx-get="pages/home.html" hx-target="#main-content"
-                            hx-swap="innerHTML transition:true"
+                        <a href="#/home" @click="open = false"
                             class="block text-center hover:text-neonCyan transition-colors text-lg font-semibold uppercase">Home</a>
-                        <a href="#" @click="open = false" hx-get="pages/about.html" hx-target="#main-content"
-                            hx-swap="innerHTML transition:true"
+                        <a href="#/about" @click="open = false"
                             class="block text-center hover:text-neonCyan transition-colors text-lg font-semibold uppercase">About
                             Me</a>
-                        <a href="#" @click="open = false" hx-get="pages/projects.html" hx-target="#main-content"
-                            hx-swap="innerHTML transition:true"
+                        <a href="#/projects" @click="open = false"
                             class="block text-center hover:text-neonCyan transition-colors text-lg font-semibold uppercase">Projects</a>
-                        <a href="#" @click="open = false" hx-get="pages/blog.html" hx-target="#main-content"
-                            hx-swap="innerHTML transition:true"
+                        <a href="#/blog" @click="open = false"
                             class="block text-center hover:text-neonCyan transition-colors text-lg font-semibold uppercase">Blog</a>
                     </div>
                 </div>
@@ -284,8 +356,7 @@
     </header>
 
     <!-- Main Content Area (SPA Target) -->
-    <main id="main-content" class="flex-grow max-w-6xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-10 page-transition"
-        hx-get="pages/home.html" hx-trigger="load" hx-swap="innerHTML transition:true">
+    <main id="main-content" class="flex-grow max-w-6xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-10 page-transition">
         <!-- Default loader -->
         <div class="flex justify-center items-center h-64">
             <div class="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-neonCyan"></div>

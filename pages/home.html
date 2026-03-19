@@ -87,7 +87,7 @@
     </section>
 
     <!-- Highlighted Projects Section (Automated via Alpine.js) -->
-    <section class="py-10 border-t border-gray-800" x-data="featuredApp()">
+    <section class="py-10 border-t border-gray-800" x-data="featuredApp">
         <h2 class="text-3xl font-bold mb-8 text-center">Featured Highlights</h2>
 
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
@@ -105,7 +105,7 @@
                         <h3 class="text-xl font-semibold mb-2 transition-colors"
                             :class="index % 2 === 0 ? 'group-hover:text-neonCyan' : 'group-hover:text-neonPurple'"
                             x-text="project.title"></h3>
-                        <p class="text-gray-400 text-sm line-clamp-2" x-text="project.description"></p>
+                        <p class="text-gray-400 text-sm line-clamp-2" x-html="project.description"></p>
                     </div>
                 </div>
             </template>
