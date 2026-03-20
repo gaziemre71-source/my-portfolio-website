@@ -115,7 +115,16 @@
                 },
 
                 viewFullProject(id) {
-                    this.closeModal();
+                    // Force close immediately instead of using the multi-step closeModal()
+                    this.modalOpen = false;
+                    this.mediaType = 'image';
+                    document.body.style.overflow = '';
+                    
+                    // Small delay to clear active project so UI doesn't flicker before content swap
+                    setTimeout(() => {
+                        this.activeProject = null;
+                    }, 100);
+
                     // Update hash for shareable link
                     window.location.hash = `#/project/${id}`;
                 },

@@ -118,9 +118,8 @@
 
                 </div>
 
-                <!-- Dynamic Media Display based on selection -->
                 <div
-                    class="w-full mt-6 bg-black rounded-xl overflow-hidden border border-gray-800 flex justify-center items-center h-[400px]">
+                    class="w-full mt-6 bg-black rounded-xl overflow-hidden border border-gray-800 flex justify-center items-center h-[400px] relative">
 
                     <div x-show="mediaType === 'image'" class="w-full h-full flex items-center justify-center p-4">
                         <img :src="activeProject?.screenshot"
@@ -137,9 +136,9 @@
 
                     <div x-show="mediaType === 'video'" class="w-full h-full flex items-center justify-center p-4"
                         style="display: none;">
-                        <div class="w-full max-w-2xl aspect-video max-h-[360px]">
+                        <div class="w-full max-w-2xl aspect-video max-h-[360px] relative">
                             <template x-if="activeProject?.video">
-                                <div>
+                                <div class="w-full h-full relative">
                                     <!-- Render iframe for YouTube links -->
                                     <template x-if="activeProject.video.includes('youtube.com') || activeProject.video.includes('youtu.be')">
                                         <iframe :src="activeProject.video" class="w-full h-full rounded-lg absolute inset-0" frameborder="0"
