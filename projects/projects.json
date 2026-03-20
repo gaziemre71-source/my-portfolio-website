@@ -1,7 +1,7 @@
 [
   {
     "id": 1,
-    "title": "PDF Eliminator Tool",
+    "title": "PDF Regulator Tool",
     "description": "An AI-assisted PDF management tool. <a href='https://www.google.com' target='_blank' class='text-neonCyan hover:underline'>Search on Google</a>",
     "tags": [
       "Python",
@@ -13,38 +13,44 @@
       "RAG"
     ],
     "screenshot": "assets/image.png",
-    "gif": "assets/output.gif",
+    "gif": "",
     "video": "assets/video.mp4",
     "markdownFile": "projects/1.md"
   },
   {
     "id": 2,
-    "title": "Report Automation",
-    "description": "A minimalist dark mode dashboard built entirely with frontend technologies. Focuses on speed, responsiveness, and a cyber-punk aesthetic.",
+    "title": "AI Agent",
+    "description": "An AI-assisted PDF management tool. <a href='https://www.google.com' target='_blank' class='text-neonCyan hover:underline'>Search on Google</a>",
     "tags": [
-      "Tailwind CSS",
-      "Alpine.js",
-      "HTMX",
-      "UI/UX"
+      "Python",
+      "PyMuPDF",
+      "Streamlit",
+      "Automation",
+      "AI",
+      "LLM",
+      "RAG"
     ],
-    "screenshot": "https://placehold.co/600x400/1a1a1f/bc13fe?text=Neon+Dashboard",
-    "gif": "assets/output.gif",
-    "video": "assets/video.mp4",
+    "screenshot": "assets/image.png",
+    "gif": "",
+    "video": "assets/video2.mp4",
     "markdownFile": "projects/2.md"
   },
   {
     "id": 3,
-    "title": "ETL Data Pipeline",
-    "description": "A robust data pipeline designed to handle large volumes of real-world data, transforming it for analytical processing and reporting.",
+    "title": "ETL PipeLine",
+    "description": "An AI-assisted PDF management tool. <a href='https://www.google.com' target='_blank' class='text-neonCyan hover:underline'>Search on Google</a>",
     "tags": [
-      "Data Engineering",
       "Python",
-      "Polars",
-      "SQL"
+      "PyMuPDF",
+      "Streamlit",
+      "Automation",
+      "AI",
+      "LLM",
+      "RAG"
     ],
-    "screenshot": "https://placehold.co/600x400/1a1a1f/14a800?text=Data+Pipeline",
+    "screenshot": "assets/image.png",
     "gif": "",
-    "video": "",
+    "video": "assets/video2.mp4",
     "markdownFile": "projects/3.md"
   }
 ]
