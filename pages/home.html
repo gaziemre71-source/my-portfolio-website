@@ -16,11 +16,11 @@
         </p>
 
         <div class="flex flex-col sm:flex-row justify-center gap-4">
-            <a href="#/projects"
+            <a href="/projects"
                 class="px-8 py-3 rounded-full bg-transparent border-2 border-neonCyan text-neonCyan font-semibold hover:bg-neonCyan hover:text-black transition-all border-glow-cyan">
                 View Projects
             </a>
-            <a href="#/about"
+            <a href="/about"
                 class="px-8 py-3 rounded-full bg-transparent border-2 border-neonCyan text-neonCyan font-semibold hover:bg-neonCyan hover:text-black transition-all border-glow-cyan">
                 About Me
             </a>
@@ -95,7 +95,7 @@
             <template x-for="(project, index) in featured" :key="project.id">
                 <div class="bg-darkCard rounded-xl overflow-hidden border border-gray-800 transition-all group cursor-pointer"
                     :class="index % 2 === 0 ? 'hover:border-neonCyan' : 'hover:border-neonPurple'"
-                    hx-get="pages/projects.html" hx-target="#main-content" hx-swap="innerHTML transition:true">
+                    hx-get="/pages/projects.html" hx-target="#main-content" hx-swap="innerHTML transition:true">
                     <!-- HTMX Note: Since Alpine renders this dynamically, HTMX might not process the hx-get attribute automatically. We need to tell Alpine to process it after rendering. -->
                     <div class="h-48 bg-gray-900 relative"
                         x-init="$nextTick(() => { htmx.process($el.parentElement) })">

@@ -95,7 +95,7 @@
 
                 async init() {
                     try {
-                        const response = await fetch('projects/projects.json');
+                        const response = await fetch('/projects/projects.json');
                         if (!response.ok) throw new Error('Projeler yüklenemedi.');
                         this.projects = await response.json();
                     } catch (err) {
@@ -126,7 +126,8 @@
                     }, 100);
 
                     // Update hash for shareable link
-                    window.location.hash = `#/project/${id}`;
+                    window.history.pushState({}, '', `/project/${id}`);
+                    handleRouting();
                 },
 
                 closeModal() {
@@ -156,7 +157,7 @@
                 async init() {
                     try {
                         // Prevent JSON caching
-                        const res = await fetch(`blog/blogs.json?t=${new Date().getTime()}`);
+                        const res = await fetch(`/blog/blogs.json?t=${new Date().getTime()}`);
                         if (res.ok) {
                             this.blogList = await res.json();
                         }
@@ -169,7 +170,7 @@
                         this.loadMarkdown(this.blogList[0].file);
                     } else {
                         // Fallback
-                        this.loadMarkdown('blog/welcome.md');
+                        this.loadMarkdown('/blog/welcome.md');
                     }
                 },
                 async loadMarkdown(filepath) {
@@ -200,7 +201,7 @@
                 featured: [],
                 async init() {
                     try {
-                        const res = await fetch(`projects/projects.json?t=${new Date().getTime()}`);
+                        const res = await fetch(`/projects/projects.json?t=${new Date().getTime()}`);
                         if (!res.ok) throw new Error('Projeler yüklenemedi.');
                         const data = await res.json();
                         this.featured = data.slice(0, 3);
@@ -230,7 +231,7 @@
 
                     try {
                         // 1. Fetch JSON to get Project Meta
-                        const res = await fetch('projects/projects.json');
+                        const res = await fetch('/projects/projects.json');
                         const data = await res.json();
                         this.project = data.find(p => p.id === this.projectId);
 
@@ -257,31 +258,48 @@
             }
         }
 
-        // Simple Hash Router
+        // Simple Path Router
         const routes = {
-            '#/home': 'pages/home.html',
-            '#/about': 'pages/about.html',
-            '#/projects': 'pages/projects.html',
-            '#/blog': 'pages/blog.html'
+            '/': '/pages/home.html',
+            '/home': '/pages/home.html',
+            '/about': '/pages/about.html',
+            '/projects': '/pages/projects.html',
+            '/blog': '/pages/blog.html'
         };
 
         function handleRouting() {
-            const hash = window.location.hash || '#/home';
+            let path = window.location.pathname;
+            if (path === '/') path = '/home'; // Default
             
             // Special case for project detail
-            if (hash.startsWith('#/project/')) {
-                const id = hash.split('/').pop();
+            if (path.startsWith('/project/')) {
+                const id = path.split('/').pop();
                 localStorage.setItem('emregoktas_portfolio_project_id', id);
-                htmx.ajax('GET', 'pages/project-detail.html', { target: '#main-content', swap: 'innerHTML transition:true' });
+                htmx.ajax('GET', '/pages/project-detail.html', { target: '#main-content', swap: 'innerHTML transition:true' });
                 return;
             }
 
             // Standard routes
-            const page = routes[hash];
+            const page = routes[path];
             if (page) {
                 htmx.ajax('GET', page, { target: '#main-content', swap: 'innerHTML transition:true' });
+            } else {
+                // Return 404 or home
+                htmx.ajax('GET', '/pages/home.html', { target: '#main-content', swap: 'innerHTML transition:true' });
+                window.history.replaceState({}, '', '/home');
             }
         }
+
+        // Intercept link clicks globally for SPA
+        document.addEventListener('click', e => {
+            const link = e.target.closest('a');
+            if (link && link.getAttribute('href') && link.getAttribute('href').startsWith('/')) {
+                e.preventDefault();
+                const path = link.getAttribute('href');
+                window.history.pushState({}, '', path);
+                handleRouting();
+            }
+        });
 
         // Register Alpine Components
         document.addEventListener('alpine:init', () => {
@@ -292,7 +310,7 @@
         });
 
         // Routing Listeners
-        window.addEventListener('hashchange', handleRouting);
+        window.addEventListener('popstate', handleRouting);
         window.addEventListener('load', handleRouting);
 
         // Global HTMX Cache Busting for Development
@@ -311,7 +329,7 @@
             <div class="flex items-center justify-between h-16">
                 <!-- Logo -->
                 <div class="flex-shrink-0">
-                    <a href="#/home"
+                    <a href="/home"
                         class="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-neonCyan to-neonPurple">
                         Emre<span class="text-white">GOKTAS</span>
                     </a>
@@ -320,16 +338,16 @@
                 <!-- Desktop Menu -->
                 <nav class="hidden md:block">
                     <ul class="flex space-x-8 items-center">
-                        <li><a href="#/home"
+                        <li><a href="/home"
                                 class="hover:text-neonCyan transition-colors cursor-pointer text-sm font-semibold tracking-wider uppercase">Home</a>
                         </li>
-                        <li><a href="#/about"
+                        <li><a href="/about"
                                 class="hover:text-neonCyan transition-colors cursor-pointer text-sm font-semibold tracking-wider uppercase">About
                                 Me</a></li>
-                        <li><a href="#/projects"
+                        <li><a href="/projects"
                                 class="hover:text-neonCyan transition-colors cursor-pointer text-sm font-semibold tracking-wider uppercase">Projects</a>
                         </li>
-                        <li><a href="#/blog"
+                        <li><a href="/blog"
                                 class="hover:text-neonCyan transition-colors cursor-pointer text-sm font-semibold tracking-wider uppercase">Blog</a>
                         </li>
                     </ul>
@@ -349,14 +367,14 @@
                     <!-- Mobile Menu Dropdown -->
                     <div x-show="open" @click.away="open = false" style="display: none;"
                         class="absolute top-16 left-0 w-full bg-darkCard border-b border-gray-800 shadow-xl p-4 flex flex-col space-y-4">
-                        <a href="#/home" @click="open = false"
+                        <a href="/home" @click="open = false"
                             class="block text-center hover:text-neonCyan transition-colors text-lg font-semibold uppercase">Home</a>
-                        <a href="#/about" @click="open = false"
+                        <a href="/about" @click="open = false"
                             class="block text-center hover:text-neonCyan transition-colors text-lg font-semibold uppercase">About
                             Me</a>
-                        <a href="#/projects" @click="open = false"
+                        <a href="/projects" @click="open = false"
                             class="block text-center hover:text-neonCyan transition-colors text-lg font-semibold uppercase">Projects</a>
-                        <a href="#/blog" @click="open = false"
+                        <a href="/blog" @click="open = false"
                             class="block text-center hover:text-neonCyan transition-colors text-lg font-semibold uppercase">Blog</a>
                     </div>
                 </div>
