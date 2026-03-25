@@ -7,6 +7,53 @@
     <title>Emre GOKTAS - Portfolio</title>
     <base href="/">
 
+    <!-- Primary Meta Tags -->
+    <meta name="description" content="I design AI agents, intelligent workflows, and automation systems that transform raw data and documents into structured, actionable information.">
+    <meta name="keywords" content="AI Agent Development, Data Processing, Document Processing, Python Automation, ETL Pipelines, Emre GOKTAS, Portfolio">
+    <meta name="author" content="Emre GOKTAS">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://emregoktas.dev/">
+    <meta property="og:title" content="Emre GOKTAS - Portfolio">
+    <meta property="og:description" content="I design AI agents, intelligent workflows, and automation systems that transform raw data and documents into structured, actionable information.">
+    <meta property="og:image" content="https://emregoktas.dev/assets/og-image.jpg">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://emregoktas.dev/">
+    <meta property="twitter:title" content="Emre GOKTAS - Portfolio">
+    <meta property="twitter:description" content="I design AI agents, intelligent workflows, and automation systems that transform raw data and documents into structured, actionable information.">
+    <meta property="twitter:image" content="https://emregoktas.dev/assets/og-image.jpg">
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://emregoktas.dev/">
+
+    <!-- App Manifest & Favicons -->
+    <link rel="icon" href="/favicon.ico" sizes="any">
+    <link rel="icon" href="/icon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <meta name="theme-color" content="#0f0f11">
+
+    <!-- JSON-LD Structured Data for Person -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org/",
+      "@type": "Person",
+      "name": "Emre GOKTAS",
+      "jobTitle": "AI Agent Developer & Data Engineer",
+      "url": "https://emregoktas.dev/",
+      "sameAs": [
+        "https://github.com/emre-goktas",
+        "https://www.linkedin.com/in/goktasemre0907/",
+        "https://www.youtube.com/@emregazi4615",
+        "https://www.upwork.com/freelancers/~01437d01e9afc9d523",
+        "https://medium.com/@gaziemre71"
+      ]
+    }
+    </script>
+
     <!-- Tailwind CSS (CDN) -->
     <script src="https://cdn.tailwindcss.com?plugins=typography"></script>
     <script>
@@ -259,14 +306,21 @@
             }
         }
 
-        // Simple Path Router
+        // Simple Path Router with SEO Titles
         const routes = {
-            '/': '/pages/home.html',
-            '/home': '/pages/home.html',
-            '/about': '/pages/about.html',
-            '/projects': '/pages/projects.html',
-            '/blog': '/pages/blog.html'
+            '/': { page: '/pages/home.html', title: 'Emre GOKTAS - Portfolio', desc: "Emre GOKTAS's portfolio. I design AI agents and automation systems." },
+            '/home': { page: '/pages/home.html', title: 'Emre GOKTAS - Home', desc: "Emre GOKTAS's portfolio homepage." },
+            '/about': { page: '/pages/about.html', title: 'Emre GOKTAS - About Me', desc: "Learn more about Emre GOKTAS, AI Agent Developer and Data Engineer." },
+            '/projects': { page: '/pages/projects.html', title: 'Emre GOKTAS - Projects', desc: "View projects created by Emre GOKTAS." },
+            '/blog': { page: '/pages/blog.html', title: 'Emre GOKTAS - Blog', desc: "Read technical articles and blog posts by Emre GOKTAS." }
         };
+
+        function updateMetaDescription(desc) {
+            let metaDesc = document.querySelector('meta[name="description"]');
+            if (metaDesc) {
+                metaDesc.setAttribute("content", desc);
+            }
+        }
 
         function handleRouting() {
             let path = window.location.pathname;
@@ -276,16 +330,22 @@
             if (path.startsWith('/project/')) {
                 const id = path.split('/').pop();
                 localStorage.setItem('emregoktas_portfolio_project_id', id);
+                document.title = 'Project Detail - Emre GOKTAS';
+                updateMetaDescription('View details for this project.');
                 htmx.ajax('GET', '/pages/project-detail.html', { target: '#main-content', swap: 'innerHTML transition:true' });
                 return;
             }
 
             // Standard routes
-            const page = routes[path];
-            if (page) {
-                htmx.ajax('GET', page, { target: '#main-content', swap: 'innerHTML transition:true' });
+            const route = routes[path];
+            if (route) {
+                document.title = route.title;
+                updateMetaDescription(route.desc);
+                htmx.ajax('GET', route.page, { target: '#main-content', swap: 'innerHTML transition:true' });
             } else {
                 // Return 404 or home
+                document.title = routes['/home'].title;
+                updateMetaDescription(routes['/home'].desc);
                 htmx.ajax('GET', '/pages/home.html', { target: '#main-content', swap: 'innerHTML transition:true' });
                 window.history.replaceState({}, '', '/home');
             }
