@@ -2,15 +2,14 @@
   {
     "id": 1,
     "title": "PDF Regulator Tool",
-    "description": "An AI-assisted PDF management tool. <a href='https://emreemre05-pdf-regulator.hf.space' target='_blank' class='text-neonCyan hover:underline'>Search on Google</a>",
+    "description": "Professional PDF tool to extract, rotate, and optimize pages with advanced OCR and text recognition.",
+    "liveUrl": "https://emreemre05-pdf-regulator.hf.space",
     "tags": [
       "Python",
+      "FastAPI",
       "PyMuPDF",
-      "Streamlit",
-      "Automation",
-      "AI",
-      "LLM",
-      "RAG"
+      "OCR",
+      "AI"
     ],
     "screenshot": "assets/image.png",
     "gif": "",

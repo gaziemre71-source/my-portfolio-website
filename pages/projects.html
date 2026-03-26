@@ -158,13 +158,19 @@
 
                 </div>
 
-                <!-- Modal Footer with "View Full Project" -->
                 <div class="px-6 py-4 border-t border-gray-800 bg-black/20 flex flex-col sm:flex-row justify-end items-center gap-4">
                     <button @click="closeModal()"
                             class="px-6 py-2 rounded-lg text-sm font-semibold tracking-wider text-gray-400 hover:text-white transition-colors border border-transparent hover:border-gray-700 w-full sm:w-auto">
                         Close Preview
                     </button>
-                    <!-- Instead of an a href, we use htmx manually or handle routing in Alpine to ensure it loads in main-content -->
+                    <!-- Live Demo button — only shown when liveUrl exists -->
+                    <template x-if="activeProject?.liveUrl">
+                        <a :href="activeProject.liveUrl" target="_blank" rel="noopener"
+                           class="px-6 py-2 bg-neonPurple/10 border border-neonPurple text-neonPurple hover:bg-neonPurple hover:text-black rounded-lg text-sm font-semibold tracking-wider transition-all duration-300 shadow-[0_0_12px_rgba(188,19,254,0.3)] w-full sm:w-auto text-center uppercase"
+                           @click.stop>
+                            Live Demo →
+                        </a>
+                    </template>
                     <button @click="viewFullProject(activeProject.id)"
                             class="px-6 py-2 bg-neonCyan/10 border border-neonCyan text-neonCyan hover:bg-neonCyan hover:text-black rounded-lg text-sm font-semibold tracking-wider transition-all duration-300 shadow-[0_0_15px_rgba(0,243,255,0.4)] hover:shadow-[0_0_25px_rgba(0,243,255,0.8)] animate-[pulse_2s_infinite] hover:animate-none w-full sm:w-auto text-center uppercase">
                         View Full Project
