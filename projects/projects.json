@@ -2,7 +2,7 @@
   {
     "id": 1,
     "title": "PDF Regulator Tool",
-    "description": "An AI-assisted PDF management tool. <a href='https://www.google.com' target='_blank' class='text-neonCyan hover:underline'>Search on Google</a>",
+    "description": "An AI-assisted PDF management tool. <a href='https://emreemre05-pdf-regulator.hf.space' target='_blank' class='text-neonCyan hover:underline'>Search on Google</a>",
     "tags": [
       "Python",
       "PyMuPDF",
