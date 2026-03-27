@@ -3,7 +3,7 @@
     "id": 1,
     "title": "PDF Regulator Tool",
     "description": "Professional PDF tool to extract, rotate, and optimize pages with advanced OCR and text recognition.",
-    "liveUrl": "https://emreemre05-pdf-regulator.hf.space",
+    "liveUrl": "https://emre-goktas-pdf-regulator.hf.space",
     "tags": [
       "Python",
       "FastAPI",
