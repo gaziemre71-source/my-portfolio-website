@@ -8,22 +8,26 @@
     <base href="/">
 
     <!-- Primary Meta Tags -->
-    <meta name="description" content="I design AI agents, intelligent workflows, and automation systems that transform raw data and documents into structured, actionable information.">
-    <meta name="keywords" content="AI Agent Development, Data Processing, Document Processing, Python Automation, ETL Pipelines, Emre GOKTAS, Portfolio">
+    <meta name="description"
+        content="I design AI agents, intelligent workflows, and automation systems that transform raw data and documents into structured, actionable information.">
+    <meta name="keywords"
+        content="AI Agent Development, Data Processing, Document Processing, Python Automation, ETL Pipelines, Emre GOKTAS, Portfolio">
     <meta name="author" content="Emre GOKTAS">
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://emregoktas.dev/">
     <meta property="og:title" content="Emre GOKTAS - Portfolio">
-    <meta property="og:description" content="I design AI agents, intelligent workflows, and automation systems that transform raw data and documents into structured, actionable information.">
+    <meta property="og:description"
+        content="I design AI agents, intelligent workflows, and automation systems that transform raw data and documents into structured, actionable information.">
     <meta property="og:image" content="https://emregoktas.dev/assets/og-image.jpg">
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
     <meta property="twitter:url" content="https://emregoktas.dev/">
     <meta property="twitter:title" content="Emre GOKTAS - Portfolio">
-    <meta property="twitter:description" content="I design AI agents, intelligent workflows, and automation systems that transform raw data and documents into structured, actionable information.">
+    <meta property="twitter:description"
+        content="I design AI agents, intelligent workflows, and automation systems that transform raw data and documents into structured, actionable information.">
     <meta property="twitter:image" content="https://emregoktas.dev/assets/og-image.jpg">
 
     <!-- Canonical URL -->
@@ -167,7 +171,7 @@
                     this.modalOpen = false;
                     this.mediaType = 'image';
                     document.body.style.overflow = '';
-                    
+
                     // Small delay to clear active project so UI doesn't flicker before content swap
                     setTimeout(() => {
                         this.activeProject = null;
@@ -325,7 +329,7 @@
         function handleRouting() {
             let path = window.location.pathname;
             if (path === '/') path = '/home'; // Default
-            
+
             // Special case for project detail
             if (path.startsWith('/project/')) {
                 const id = path.split('/').pop();
@@ -453,8 +457,8 @@
 
     <!-- Footer -->
     <footer class="border-t border-gray-800 py-6 text-center text-sm text-gray-500">
-        <p>&copy; <span x-data x-text="new Date().getFullYear()"></span> Emre GOKTAS. Built with HTMX, Alpine.js &
-            Tailwind CSS.</p>
+        <p>&copy; <span x-data x-text="new Date().getFullYear()"></span>
+        </p>
     </footer>
 
 </body>
