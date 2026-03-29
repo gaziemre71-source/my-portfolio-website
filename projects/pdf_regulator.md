@@ -1,6 +1,6 @@
-## PDF Regulator - A PDF Processing Tool
+# PDF Regulator - A PDF Processing Tool
 
-**Control Your PDFs**
+## Control Your PDFs
 
 ---
 
@@ -58,7 +58,7 @@ Upload → Select → Process → Done
 
 No complex setup. No unnecessary steps.
 
-[TRY IT NOW](https://emre-goktas-pdf-regulator.hf.space)
+
 ---
 
 ### How It Evolved
@@ -106,3 +106,5 @@ This is not a “magic AI tool”.
 It’s a practical system built to make a very specific, very annoying workflow actually manageable.
 
 It does it's job done.
+
+[You can try it here](htt//emre-goktas-pdf-regulator.hf.space)
