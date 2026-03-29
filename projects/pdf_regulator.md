@@ -107,4 +107,4 @@ It’s a practical system built to make a very specific, very annoying workflow 
 
 It does it's job done.
 
-[You can try it here](htt//emre-goktas-pdf-regulator.hf.space)
+[You can try it here](https://emre-goktas-pdf-regulator.hf.space)
