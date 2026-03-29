@@ -2,7 +2,7 @@
   {
     "id": 1,
     "title": "PDF Regulator",
-    "description": "Professional PDF tool to extract, rotate, and optimize pages with advanced OCR and text recognition.",
+    "description": "Professional PDF tool to select, extract, reorder, rotate, and optimize pages with OCR and text recognition.",
     "liveUrl": "https://emre-goktas-pdf-regulator.hf.space",
     "tags": [
       "Python",
@@ -12,7 +12,7 @@
     ],
     "screenshot": "assets/pdf-regulator.png",
     "gif": "",
-    "video": "assets/video.mp4",
+    "video": "assets/pdf-regulator.mp4",
     "markdownFile": "projects/pdf_regulator.md"
   },
   {
