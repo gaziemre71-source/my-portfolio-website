@@ -40,7 +40,7 @@
 
             <!-- Hero Image/Video (Optional) -->
             <div class="w-full rounded-2xl overflow-hidden border border-gray-800 shadow-xl border-glow-cyan">
-                 <img x-show="project?.screenshot" :src="project?.screenshot" class="w-full object-cover">
+                 <img x-show="project?.screenshot" :src="project?.screenshot + '?t=' + new Date().getTime()" class="w-full object-cover">
             </div>
         </header>
 

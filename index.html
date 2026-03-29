@@ -147,7 +147,7 @@
 
                 async init() {
                     try {
-                        const response = await fetch('/projects/projects.json');
+                        const response = await fetch(`/projects/projects.json?t=${new Date().getTime()}`);
                         if (!response.ok) throw new Error('Projeler yüklenemedi.');
                         this.projects = await response.json();
                     } catch (err) {
@@ -283,7 +283,7 @@
 
                     try {
                         // 1. Fetch JSON to get Project Meta
-                        const res = await fetch('/projects/projects.json');
+                        const res = await fetch(`/projects/projects.json?t=${new Date().getTime()}`);
                         const data = await res.json();
                         this.project = data.find(p => p.id === this.projectId);
 
